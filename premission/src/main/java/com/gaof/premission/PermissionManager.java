@@ -110,6 +110,11 @@ public class PermissionManager {
         if(!denied.isEmpty()){
             if(activity instanceof PermissionCallback){
                 ((PermissionCallback) activity).onPermissionDenied(requestCode,denied);
+//                if(PermissionManager.somePermissionPermanentlyDenied(activity,denied)){
+//                    //显示一个对话框告诉开启
+//                    PermissionHelper helper= PermissionHelper.newInstance(activity);
+//                    helper.showDialogRemind();
+//                }
             }
         }
         //如果全部授权执行@IPermission注解方法

@@ -39,4 +39,7 @@ public abstract class PermissionHelper {
                                             int requestCode,String... perms);
 
     public abstract boolean somePermissionPermanentlyDenied(List<String> perms);
+
+    public void showDialogRemind(){}
+
 }

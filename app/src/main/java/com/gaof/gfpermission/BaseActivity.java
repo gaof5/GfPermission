@@ -23,6 +23,11 @@ public class BaseActivity extends AppCompatActivity implements PermissionCallbac
     @Override
     public void onPermissionGranted(int requestCode, List<String> perms) {
         Log.d(TAG, "onPermissionGranted: "+requestCode);
+    }
+
+    @Override
+    public void onPermissionDenied(int requestCode, List<String> perms) {
+        Log.d(TAG, "onPermissionDenied: "+requestCode);
         //检查用户是否拒绝过权限，并且点击了 不再询问
         if(PermissionManager.somePermissionPermanentlyDenied(this,perms)){
             //显示一个对话框告诉开启
@@ -37,11 +42,5 @@ public class BaseActivity extends AppCompatActivity implements PermissionCallbac
                         }
                     }).build().show();
         }
-    }
-
-    @Override
-    public void onPermissionDenied(int requestCode, List<String> perms) {
-        Log.d(TAG, "onPermissionDenied: "+requestCode);
-        //用户点击的拒绝，并勾选了 不再询问
     }
 }
