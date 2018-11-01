@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 
 import com.gaof.premission.dialog.RuntimeSettingPage;
 import com.gaof.premission.listener.PermissionCallback;
@@ -19,7 +20,7 @@ public class PermissionManagerEasy {
 
     private Source mSource;
     private PermissionCallback permissionCallback;
-    private String rationale;
+    private String rationale="正常使用应用，需同意相关权限";
     private int requestCode;
     private String[] perms;
 
@@ -53,7 +54,8 @@ public class PermissionManagerEasy {
      * @return 权限管理类
      */
     public PermissionManagerEasy setPermissions(String rationale, int requestCode, String... perms){
-        this.rationale=rationale;
+        if(!TextUtils.isEmpty(rationale))
+            this.rationale=rationale;
         this.requestCode=requestCode;
         this.perms=perms;
         return this;

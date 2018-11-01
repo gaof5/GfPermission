@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gaof.premission.GfPermission;
+import com.gaof.premission.Permission;
 import com.gaof.premission.PermissionManager;
 import com.gaof.premission.annotation.IPermission;
 import com.gaof.premission.listener.PermissionCallback;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity {
         //方法1 注解、实现PermissionCallback配合使用 先判断是已申请此权限
 //        locationContacts();
         //方法2 无需继承基类实现PermissionCallback，无需判断是已申请此权限，直接在回调处理结果
-        String[] perms=new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_CONTACTS};
+        String[] perms=new String[]{Permission.ACCESS_FINE_LOCATION,Permission.READ_CONTACTS};
         GfPermission.with(this)
                 .setPermissions("需要定位、联系人权限发送位置",LOCATION_CONTACTS_CODE,perms)
                 .setPermissionCallback(new PermissionCallback() {
