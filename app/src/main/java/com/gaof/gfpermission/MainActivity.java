@@ -10,6 +10,7 @@ import com.gaof.premission.Permission;
 import com.gaof.premission.PermissionManager;
 import com.gaof.premission.annotation.IPermission;
 import com.gaof.premission.listener.PermissionCallback;
+import com.gaof.premission.listener.RationaleCallback;
 
 import java.util.List;
 
@@ -45,6 +46,12 @@ public class MainActivity extends BaseActivity {
         String[] perms=new String[]{Permission.ACCESS_FINE_LOCATION,Permission.READ_CONTACTS};
         GfPermission.with(this)
                 .setPermissions("需要定位、联系人权限发送位置",LOCATION_CONTACTS_CODE,perms)
+//                .rationale(new RationaleCallback() {
+//                    @Override
+//                    public void onPermissionDenied(int requestCode, List<String> perms) {
+//                        Toast.makeText(MainActivity.this,"不再询问处理",Toast.LENGTH_SHORT).show();
+//                    }
+//                })
                 .setPermissionCallback(new PermissionCallback() {
                     @Override
                     public void onPermissionGranted(int requestCode, List<String> perms) {

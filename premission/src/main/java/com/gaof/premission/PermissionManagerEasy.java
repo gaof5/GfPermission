@@ -11,6 +11,7 @@ import android.text.TextUtils;
 
 import com.gaof.premission.dialog.RuntimeSettingPage;
 import com.gaof.premission.listener.PermissionCallback;
+import com.gaof.premission.listener.RationaleCallback;
 import com.gaof.premission.source.Source;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class PermissionManagerEasy {
 
     private Source mSource;
     private PermissionCallback permissionCallback;
+    private RationaleCallback rationaleCallback;
     private String rationale="正常使用应用，需同意相关权限";
     private int requestCode;
     private String[] perms;
@@ -68,6 +70,15 @@ public class PermissionManagerEasy {
      */
     public PermissionManagerEasy setPermissionCallback(PermissionCallback permissionCallback){
         this.permissionCallback=permissionCallback;
+        return this;
+    }
+    /**
+     * 用户点击不再询问后台 回调接口(不设置默认弹框指引调转设置，弹框可取消)
+     * @param rationaleCallback 回调接口
+     * @return
+     */
+    public PermissionManagerEasy rationale(RationaleCallback rationaleCallback){
+        this.rationaleCallback=rationaleCallback;
         return this;
     }
     /**
@@ -128,7 +139,7 @@ public class PermissionManagerEasy {
                 permissionCallback.onPermissionDenied(requestCode,granted);
                 if(somePermissionPermanentlyDenied(perms)){
                     //显示一个对话框告诉开启
-                    showSettingDialog();
+                    showSettingDialog(requestCode,granted);
                 }
             }
         }
@@ -140,26 +151,30 @@ public class PermissionManagerEasy {
         }
     }
 
-    private void showSettingDialog() {
-        new AlertDialog.Builder(mSource.getContext()).setTitle("权限申请")
-                .setCancelable(false)
-                .setMessage(rationale)
-                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        RuntimeSettingPage runtimeSettingPage = new RuntimeSettingPage(mSource);
-                        runtimeSettingPage.start(PermissionManagerEasy.this.requestCode);
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create()
-                .show();
+    private void showSettingDialog(int requestCode, List<String> perms) {
+        if(rationaleCallback==null){
+            new AlertDialog.Builder(mSource.getContext()).setTitle("权限申请")
+                    .setCancelable(false)
+                    .setMessage(rationale)
+                    .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            RuntimeSettingPage runtimeSettingPage = new RuntimeSettingPage(mSource);
+                            runtimeSettingPage.start(PermissionManagerEasy.this.requestCode);
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create()
+                    .show();
+        }else {
+            rationaleCallback.onPermissionDenied(requestCode,perms);
+        }
     }
 
 
