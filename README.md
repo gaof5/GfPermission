@@ -2,8 +2,8 @@
 
   封装的权限请求框架，自己练手使用这一个中有两套框架使用方法不同，可按需使用。
   
-  ## 方法一：运用注解、实现PermissionCallback方式配合使用，用于某activity进行请求，步骤2、3可写在基类中方便使用
-  使用方法
+  ### 方法一：运用注解、实现PermissionCallback方式配合使用，用于某activity进行请求，步骤2、3可写在基类中方便使用
+  
   1.在需要请求权限的操作中添加此方法
 ```
   //注解用于申请权限后再重复执行此方法，CAMERA_CODE为请求标识码
@@ -56,7 +56,7 @@
         }
     }
   ```
-  ## 方法二：方法二接入流程有些肯觉得复杂，虽然写入基类后使用还好。因此重做了一套框架使用直接调用，最终操作在回调中进行
+  ### 方法二：方法二接入流程有些肯觉得复杂，虽然写入基类后使用还好。因此重做了一套框架使用直接调用，最终操作在回调中进行
   此方法无需先判断是否已申请了权限，权限请求成功都会回调setPermissionCallback onPermissionGranted方法
   ```
     String[] perms=new String[]{Permission.ACCESS_FINE_LOCATION,Permission.READ_CONTACTS};
