@@ -3,6 +3,7 @@
   封装的权限请求框架，自己练手使用这一个中有两套框架使用方法不同，可按需使用。
   
   How to
+  
   To get a Git project into your build:
 
   Step 1. Add the JitPack repository to your build file
