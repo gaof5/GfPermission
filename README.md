@@ -2,6 +2,29 @@
 
   封装的权限请求框架，自己练手使用这一个中有两套框架使用方法不同，可按需使用。
   
+  How to
+  To get a Git project into your build:
+
+  Step 1. Add the JitPack repository to your build file
+
+  gradle
+  maven
+  sbt
+  leiningen
+  Add it in your root build.gradle at the end of repositories:
+
+    allprojects {
+      repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+      }
+    }
+  Step 2. Add the dependency
+
+    dependencies {
+            implementation 'com.github.gaof5:GfPermission:v1.0'
+    }
+  
   ### 方法一：运用注解、实现PermissionCallback方式配合使用，用于某activity进行请求，步骤2、3可写在基类中方便使用
   
   1.在需要请求权限的操作中添加此方法
