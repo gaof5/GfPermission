@@ -59,32 +59,51 @@
   ### 方法二：方法二接入流程有些肯觉得复杂，虽然写入基类后使用还好。因此重做了一套框架使用直接调用，最终操作在回调中进行
   此方法无需先判断是否已申请了权限，权限请求成功都会回调setPermissionCallback onPermissionGranted方法
   ```
-    String[] perms=new String[]{Permission.ACCESS_FINE_LOCATION,Permission.READ_CONTACTS};
-        GfPermission.with(this)
-                .setPermissions("需要定位、联系人权限发送位置",LOCATION_CONTACTS_CODE,perms)
-                  //如已设置.rationale（）拒绝权限并勾选了不再询问，则会执行rationale中回调，不设置.rationale（）会默认弹框引导设置
+      String[] perms=new String[]{Permission.ACCESS_FINE_LOCATION,Permission.READ_CONTACTS};
+      GfPermission.with(this)
+              .setPermissions("需要定位、联系人权限发送位置",LOCATION_CONTACTS_CODE,perms)
+                //如已设置.rationale（）拒绝权限并勾选了不再询问，则会执行rationale中回调，不设置.rationale（）会默认弹框引导设置
 //                .rationale(new RationaleCallback() {
 //                    @Override
 //                    public void onPermissionDenied(int requestCode, List<String> perms) {
 //                        Toast.makeText(MainActivity.this,"不再询问处理",Toast.LENGTH_SHORT).show();
 //                    }
 //                })
-                .setPermissionCallback(new PermissionCallback() {
-                    @Override
-                    public void onPermissionGranted(int requestCode, List<String> perms) {
-                        //拿到权限进行自己的操作
-                        Toast.makeText(MainActivity.this,"定位、联系人权限拿到发送位置",Toast.LENGTH_SHORT).show();
-                    }
+              .setPermissionCallback(new PermissionCallback() {
+                  @Override
+                  public void onPermissionGranted(int requestCode, List<String> perms) {
+                      //拿到权限进行自己的操作
+                      Toast.makeText(MainActivity.this,"定位、联系人权限拿到发送位置",Toast.LENGTH_SHORT).show();
+                  }
 
-                    @Override
-                    public void onPermissionDenied(int requestCode, List<String> perms) {
-                        //用户拒绝权限后的回调 
-                        //1.如用户勾选了不再询问,如未设置.rationale（）则会默认弹框引导设置，不用在此回调操作
-                        //如已设置.rationale（）则会执行rationale中回调 
-                        //2.用户未勾选了不再询问,框架只会回调此方法，不会进行其他操作
-                        Toast.makeText(MainActivity.this,"拒绝权限",Toast.LENGTH_SHORT).show();
-                    }
-                }).request();//request()发起请求在最后调用
+                  @Override
+                  public void onPermissionDenied(int requestCode, List<String> perms) {
+                      //用户拒绝权限后的回调 
+                      //1.如用户勾选了不再询问,如未设置.rationale（）则会默认弹框引导设置，不用在此回调操作
+                      //如已设置.rationale（）则会执行rationale中回调 
+                      //2.用户未勾选了不再询问,框架只会回调此方法，不会进行其他操作
+                      Toast.makeText(MainActivity.this,"拒绝权限",Toast.LENGTH_SHORT).show();
+                  }
+              }).request();//request()发起请求在最后调用
   ```
-  
+      
+      上注释比较多为了解释更清楚，可能看起来比较多下面去掉注释给大家看下调用
+      
+      ```
+      String[] perms=new String[]{Permission.ACCESS_FINE_LOCATION,Permission.READ_CONTACTS};
+      GfPermission.with(this)
+              .setPermissions("需要定位、联系人权限发送位置",LOCATION_CONTACTS_CODE,perms)
+              .setPermissionCallback(new PermissionCallback() {
+                  @Override
+                  public void onPermissionGranted(int requestCode, List<String> perms) {
+                      //拿到权限进行自己的操作
+                      Toast.makeText(MainActivity.this,"定位、联系人权限拿到发送位置",Toast.LENGTH_SHORT).show();
+                  }
+
+                  @Override
+                  public void onPermissionDenied(int requestCode, List<String> perms) {
+                      
+                  }
+              }).request();
+      ```
   
