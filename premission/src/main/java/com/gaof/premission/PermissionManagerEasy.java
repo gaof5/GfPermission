@@ -50,7 +50,7 @@ public class PermissionManagerEasy {
 
     /**
      * 设置请求权限
-     * @param rationale 权限请求原因
+     * @param rationale 权限请求原因 未调用rationale()方法，此说明会显示在请求拒绝并勾选不再询问的弹框中
      * @param requestCode 请求标识码
      * @param perms 权限组
      * @return 权限管理类
@@ -82,7 +82,7 @@ public class PermissionManagerEasy {
         return this;
     }
     /**
-     * 申请权限
+     * 申请权限 应最后调用
      */
     public void request() {
         //请求权限前，检查权限状态
