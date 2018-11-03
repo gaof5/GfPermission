@@ -88,8 +88,7 @@
   ```
       
       上注释比较多为了解释更清楚，可能看起来比较多下面去掉注释给大家看下调用
-      
-      ```
+```
       String[] perms=new String[]{Permission.ACCESS_FINE_LOCATION,Permission.READ_CONTACTS};
       GfPermission.with(this)
               .setPermissions("需要定位、联系人权限发送位置",LOCATION_CONTACTS_CODE,perms)
@@ -105,5 +104,5 @@
                       
                   }
               }).request();
-      ```
+```
   
