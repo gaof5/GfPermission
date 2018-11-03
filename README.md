@@ -84,7 +84,7 @@
                         //2.用户未勾选了不再询问,框架只会回调此方法，不会进行其他操作
                         Toast.makeText(MainActivity.this,"拒绝权限",Toast.LENGTH_SHORT).show();
                     }
-                }).request();
+                }).request();//request()发起请求在最后调用
   ```
   
   
