@@ -23,7 +23,7 @@
   Step 2. Add the dependency
 
     dependencies {
-            implementation 'com.github.gaof5:GfPermission:v1.0'
+            implementation 'com.github.gaof5:GfPermission:v1.0.1'
     }
   
   ### 方法一：运用注解、实现PermissionCallback方式配合使用，用于某activity进行请求，步骤2、3可写在基类中方便使用
