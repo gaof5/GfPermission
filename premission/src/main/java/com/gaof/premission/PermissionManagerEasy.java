@@ -15,6 +15,7 @@ import com.gaof.premission.listener.RationaleCallback;
 import com.gaof.premission.source.Source;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PermissionManagerEasy {
@@ -61,6 +62,21 @@ public class PermissionManagerEasy {
         this.requestCode=requestCode;
         this.perms=perms;
         return this;
+    }
+    /**
+     * 设置请求权限
+     * @param rationale 权限请求原因 未调用rationale()方法，此说明会显示在请求拒绝并勾选不再询问的弹框中
+     * @param requestCode 请求标识码
+     * @param perms 权限组groups
+     * @return 权限管理类
+     */
+    public PermissionManagerEasy setPermissions(String rationale, int requestCode, String[]... perms){
+        List<String> permissionList = new ArrayList<>();
+        for (String[] group : perms) {
+            permissionList.addAll(Arrays.asList(group));
+        }
+        String[] permissions = permissionList.toArray(new String[permissionList.size()]);
+        return setPermissions(rationale,requestCode,permissions);
     }
 
     /**
